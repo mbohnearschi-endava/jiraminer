@@ -1,1 +1,7 @@
 /openssl/
+target
+*.iml
+.idea
+results
+/config/jiraminer-config-backup.properties
+deploy

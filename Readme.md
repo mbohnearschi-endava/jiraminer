@@ -36,7 +36,7 @@ The server response should be a JSON that looks similar to this one:
 ```
 
 
-## Configuration & Run
+## Configuration
 To run the application you first need to create a file called `config/jiraminer-config.properties` in the `config` folder next to the runnable files.
 An example configuration file for a local environment could be:
 ```$xslt
@@ -107,3 +107,7 @@ NOTE: You may have multiple fields in your cookie. Copy the entire Cookie to the
 Not Yet Implemented!!!
 ##### none
 The default value for the authentication field. If selected, and if the JIRA server or JIRA Cloud you are trying to connect to requires authentication for the REST API, JiraMiner will fail.
+
+
+## Run
+Run the `jiraminer.sh` or `jiraminer.bat` scripts to run the application after you have entered all fields to the configuration file (`config/jiraminer-config.properties`)
