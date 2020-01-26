@@ -2,10 +2,6 @@ package org.dxworks.dxplatform.jiraminer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.dxworks.dxplatform.jiraminer.auth.Command;
-import org.dxworks.dxplatform.jiraminer.auth.JiraOAuthClient;
-import org.dxworks.dxplatform.jiraminer.auth.OAuthClient;
-import org.dxworks.dxplatform.jiraminer.auth.PropertiesClient;
 import org.dxworks.dxplatform.jiraminer.configuration.JiraMinerConfiguration;
 import org.dxworks.dxplatform.jiraminer.rest.client.JiraRestClient;
 import org.dxworks.dxplatform.jiraminer.rest.client.JiraRestClientFactory;
@@ -13,7 +9,6 @@ import org.dxworks.dxplatform.jiraminer.rest.response.JiraIssueDTO;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -53,16 +48,4 @@ public class Main {
 		}
 	}
 
-	private static void oldMain(String[] args) throws Exception {
-		if (args.length == 0) {
-			throw new IllegalArgumentException("No command specified. Use one of " + Command.names());
-		}
-
-		PropertiesClient propertiesClient = new PropertiesClient();
-		JiraOAuthClient jiraOAuthClient = new JiraOAuthClient(propertiesClient);
-
-		List<String> argumentsWithoutFirst = Arrays.asList(args).subList(1, args.length);
-
-		new OAuthClient(propertiesClient, jiraOAuthClient).execute(Command.fromString(args[0]), argumentsWithoutFirst);
-	}
 }

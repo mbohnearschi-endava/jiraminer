@@ -1,6 +1,6 @@
-#Jira Miner
+# Jira Miner
 This app is a command line application built to extract Issue information from JIRA. 
-##Features
+## Features
 The application extracts the following fields from all JIRA Issues from the desired projects:
 ```     
       key: String;
@@ -13,7 +13,27 @@ The application extracts the following fields from all JIRA Issues from the desi
       description: String;
       components: List<String>;
 ```
-##Accessing the JIRA REST API
+## Accessing the JIRA REST API
+Before using the app, make sure you can access the JIRA REST API. go to your Jira page and log in. The access the following link:
+`<your_jira_home>/rest/api/2/serverInfo`.
+
+The server response should be a JSON that looks similar to this one:
+```$xslt
+{
+    baseUrl: "<jira_home>",
+    version: "8.3.4",
+    versionNumbers: [
+        8,
+        3,
+        4
+    ],
+    deploymentType: "Server",
+    buildDate: "2019-09-13T00:00:00.000+0300",
+    databaseBuildNumber: 803005,
+    ...
+    serverTitle: "Jira"
+}
+```
 
 
 ## Configuration & Run
@@ -29,20 +49,20 @@ cookie=JSESSIONID=E96741F7E5C783D3FCC7E82E3874D51B; atlassian.xsrf.token=BBPK-PX
 
 The file has the following fields:
 
-####projectID
+#### projectID
 The analyzed project's ID. The value of this field will be used to prefix the result file.
 
-####jira_home
+#### jira_home
 The url to the jira instance you want to extract the issues from. Examples: `http://localhos:8080`, `https://jira.<your_domain>.com`, `https//<your_domain>.com/jira`, etc.
 
-####projects
+#### projects
 A list of comma separated strings representing the JIRA project IDs you want to extract issues from. For example if we would have 3 projects in our JIRA instance with the IDs: PRO, NUL and SAN and we sould only want the issues from NUL and SAN, we would populate the projects field as follows: 
 `projects=NUL,SAM`
 
-####authentication
+#### authentication
 There are 4 possible values for this field:
 
-#####basic
+##### basic
 This field value requires two additional fields to be added to the configuration file: `username` and `password`, representing the username and the password of an authorized user who can access the JIRA REST API.
 Example usage: 
 ```$xslt
@@ -53,7 +73,7 @@ password=Password123!
 ...
 ```
 
-#####cookie
+##### cookie
 This field value requires one additional field to be added to the configuration file: `cookie`. The value of this field should be the cookie that the browser sends for an authorized user to access the JIRA Server instance.
 To get this Cookie value, please open a browser, login to your JIRA Server instance and access the following link `<jira_home>/rest/api/2/serverInfo`
 
@@ -80,10 +100,10 @@ To get the cookie from your browser, open the _Developer Console_ (right click a
 
 You should see a new Window open in your browser. Search for the _Network_ tab and refresh the page. You should see a list of requests being made.
 Amongst them should be a request to _serverInfo_. Click on that request and look at the `Request Headers` Section. Copy the Cookie field value in the configuration file. 
-
+![](docs/jiraminer-cookie.jpg)
 NOTE: You may have multiple fields in your cookie. Copy the entire Cookie to the `jiraminer-config.properties` under the cookie field.
 
-#####oauth
+##### oauth
 Not Yet Implemented!!!
-#####none
+##### none
 The default value for the authentication field. If selected, and if the JIRA server or JIRA Cloud you are trying to connect to requires authentication for the REST API, JiraMiner will fail.
