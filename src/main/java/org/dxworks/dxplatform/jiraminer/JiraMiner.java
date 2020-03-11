@@ -32,6 +32,8 @@ public class JiraMiner {
         List<String> existingJiraProjects = filterOnlyExistingProjects(jiraMinerConfiguration.getProjects());
         String jql = createJqlQuery(existingJiraProjects);
 
+        log.info("Created jql query: '{}'", jql);
+
         List<Issue> allIssues = new ArrayList<>();
 
         String jiraJqlLink = jiraHome + API_BASE + "search";
@@ -43,10 +45,12 @@ public class JiraMiner {
         do {
             IssueSearchResult searchResult = searchIssues(jiraJqlLink, jql, maxResults, startAt);
 
+
             allIssues.addAll(searchResult.getIssues());
 
-            startAt = startAt + maxResults;
             total = searchResult.getTotal();
+            startAt = startAt + maxResults;
+            log.info("Got issues ({}/{})", Math.min(startAt, total), total);
         } while (startAt < total);
 
         return createJiraIssueDTOSFromIssues(allIssues);

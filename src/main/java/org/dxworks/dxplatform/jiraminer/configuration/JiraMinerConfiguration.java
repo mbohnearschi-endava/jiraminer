@@ -31,6 +31,7 @@ public class JiraMinerConfiguration {
     }
 
     private void readConfigurationFile() {
+        log.info("Reading configuration file...");
         configurationProperties = readConfiguration();
         jiraHome = configurationProperties.getProperty(JIRA_HOME);
         String jiraProjects = configurationProperties.getProperty(JIRA_PROJECTS_FIELD);
@@ -46,6 +47,7 @@ public class JiraMinerConfiguration {
         authenticationType = jiraAuthentication != null ?
                 AuthenticationType.valueOf(jiraAuthentication.toUpperCase()) :
                 AuthenticationType.NONE;
+        log.info("Configuration read successfully.");
     }
 
     private Properties readConfiguration() {
